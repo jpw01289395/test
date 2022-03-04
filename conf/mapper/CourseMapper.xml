@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="god.jiang.programmer.dao.CourseDao">
+    <select id="findList" parameterType="Map" resultType="Course">
+        select * from course where cname like #{cname} limit #{offset},#{pageSize}
+    </select>
+    <select id="findAll" resultType="Course">
+        select * from course
+    </select>
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(id) from course where cname like #{cname}
+    </select>
+    <update id="add" parameterType="Course">
+        insert into course(id,cname,cid) values(null,#{cname},#{cid})
+    </update>
+    <update id="edit" parameterType="Course">
+        update course set cname = #{cname},cid = #{cid} where id = #{id}
+    </update>
+    <update id="delete" parameterType="String">
+        delete from course where id in (${value})
+    </update>
+</mapper>

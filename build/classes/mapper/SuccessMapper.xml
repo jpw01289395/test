@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="god.jiang.programmer.dao.SuccessDao">
+    <select id="findList" parameterType="Map" resultType="Success">
+        select * from success where 1=1
+        <if test="success !=null">
+            and success like #{success}
+        </if>
+        <if test="cid !=null">
+            and cid = #{cid}
+        </if>
+        <if test="sid != null">
+            and sid = #{sid}
+        </if>
+        limit #{offset},#{pageSize}
+    </select>
+    <select id="findAll" resultType="Success">
+        select * from success
+    </select>
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(id) from success where 1=1
+        <if test="success !=null">
+            and success like #{success}
+        </if>
+        <if test="cid !=null">
+            and cid = #{cid}
+        </if>
+        <if test="sid != null">
+            and sid = #{sid}
+        </if>
+    </select>
+    <update id="add" parameterType="Success">
+        insert into success(id,sid,cid,success) values(null,#{sid},#{cid},#{success})
+    </update>
+    <update id="edit" parameterType="Success">
+        update success set success = #{success},sid = #{sid},cid = #{cid} where id = #{id}
+    </update>
+    <update id="delete" parameterType="String">
+        delete from success where id in (${value})
+    </update>
+</mapper>

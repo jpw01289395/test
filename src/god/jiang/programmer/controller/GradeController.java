@@ -76,6 +76,11 @@ public class GradeController {
 			ret.put("msg", "年级名称不能为空！");
 			return ret;
 		}
+		if(StringUtils.isEmpty(grade.getMid())){
+			ret.put("type", "error");
+			ret.put("msg", "年级号不能为空！");
+			return ret;
+		}
 		if(gradeService.edit(grade) <= 0){
 			ret.put("type", "error");
 			ret.put("msg", "年级修改失败！");
@@ -99,6 +104,11 @@ public class GradeController {
 		if(StringUtils.isEmpty(grade.getName())){
 			ret.put("type", "error");
 			ret.put("msg", "年级名称不能为空！");
+			return ret;
+		}
+		if(StringUtils.isEmpty(grade.getMid())){
+			ret.put("type", "error");
+			ret.put("msg", "年级号不能为空！");
 			return ret;
 		}
 		if(gradeService.add(grade) <= 0){

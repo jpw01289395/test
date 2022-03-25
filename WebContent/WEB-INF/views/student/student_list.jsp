@@ -40,10 +40,10 @@
  		        		return '<img src='+value+' width="100px" />';
  		    	   } 	
  		       },
- 		        {field:'username',title:'姓名',width:150, sortable: true},
+ 		        {field:'name',title:'姓名',width:150, sortable: true},
  		       {field:'sn',title:'学号',width:150, sortable: true},
  		      {field:'sex',title:'性别',width:150, sortable: true},
- 		       {field:'clazzId',title:'所属班级',width:150, sortable: true,
+ 		       {field:'classid',title:'所属班级',width:150, sortable: true,
  		        	formatter:function(value,index,row){
  		        		for(var i=0;i<clazzList.length;i++){
  		        			if(clazzList[i].id == value){
@@ -54,7 +54,6 @@
  		    	   }
  		        },
  		        {field:'password',title:'密码',width:150},
- 		       {field:'remark',title:'备注',width:200},
 	 		]], 
 	        toolbar: "#toolbar"
 	    }); 

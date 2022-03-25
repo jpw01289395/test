@@ -44,9 +44,12 @@ public class ClazzController {
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public ModelAndView list(ModelAndView model){
 		model.setViewName("clazz/clazz_list");
+		List<Clazz> cfindAll = clazzService.findAll();
 		List<Grade> findAll = gradeService.findAll();
 		model.addObject("gradeList",findAll );
 		model.addObject("gradeListJson",JSONArray.fromObject(findAll));
+		model.addObject("clazzList",cfindAll );
+		model.addObject("clazzListJson",JSONArray.fromObject(cfindAll));
 		return model;
 	}
 	
@@ -60,14 +63,14 @@ public class ClazzController {
 	@ResponseBody
 	public Map<String, Object> getList(
 			@RequestParam(value="name",required=false,defaultValue="") String name,
-			@RequestParam(value="gradeId",required=false) Long gradeId,
+			@RequestParam(value="mid",required=false) String mid,
 			Page page
 			){
 		Map<String, Object> ret = new HashMap<String, Object>();
 		Map<String, Object> queryMap = new HashMap<String, Object>();
 		queryMap.put("name", "%"+name+"%");
-		if(gradeId != null){
-			queryMap.put("gradeId", gradeId);
+		if(mid != null){
+			queryMap.put("mid", mid);
 		}
 		queryMap.put("offset", page.getOffset());
 		queryMap.put("pageSize", page.getRows());
@@ -90,9 +93,14 @@ public class ClazzController {
 			ret.put("msg", "班级名称不能为空！");
 			return ret;
 		}
-		if(clazz.getGradeId() == null){
+		if(clazz.getMid() == null){
 			ret.put("type", "error");
 			ret.put("msg", "所属年级不能为空！");
+			return ret;
+		}
+		if(StringUtils.isEmpty(clazz.getClassid())){
+			ret.put("type", "error");
+			ret.put("msg", "班级号不能为空！");
 			return ret;
 		}
 		if(clazzService.edit(clazz) <= 0){
@@ -120,7 +128,12 @@ public class ClazzController {
 			ret.put("msg", "班级名称不能为空！");
 			return ret;
 		}
-		if(clazz.getGradeId() == null){
+		if(StringUtils.isEmpty(clazz.getClassid())){
+			ret.put("type", "error");
+			ret.put("msg", "班级号不能为空！");
+			return ret;
+		}
+		if(clazz.getMid() == null){
 			ret.put("type", "error");
 			ret.put("msg", "请选择所属年级！");
 			return ret;

@@ -13,10 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		select count(id) from grade where name like #{name}
   	</select>
   	<update id="add" parameterType="Grade">
-  		insert into grade(id,name,remark) values(null,#{name},#{remark})
+  		insert into grade(id,name,mid) values(null,#{name},#{mid})
   	</update>
   	<update id="edit" parameterType="Grade">
-  		update grade set name = #{name},remark = #{remark} where id = #{id}
+  		update grade set name = #{name},mid = #{mid} where id = #{id}
   	</update>
   	<update id="delete" parameterType="String">
   		delete from grade where id in (${value})

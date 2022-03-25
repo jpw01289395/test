@@ -35,7 +35,7 @@
 				{field:'chk',checkbox: true,width:50},
  		        {field:'id',title:'ID',width:50, sortable: true},    
  		        {field:'name',title:'年级名',width:150, sortable: true},
- 		        {field:'remark',title:'备注',width:300},
+ 		        {field:'mid',title:'年级号',width:300},
 	 		]], 
 	        toolbar: "#toolbar"
 	    }); 
@@ -134,7 +134,7 @@
 										$("#addDialog").dialog("close");
 										//清空原表格数据
 										$("#add_name").textbox('setValue', "");
-										$("#add_remark").textbox('setValue', "");
+										$("#add_mid").textbox('setValue', "");
 										//重新刷新页面数据
 							  			$('#dataList').datagrid("reload");
 										
@@ -150,7 +150,7 @@
 			],
 			onClose: function(){
 				$("#add_name").textbox('setValue', "");
-				$("#add_remark").textbox('setValue', "");
+				$("#add_mid").textbox('setValue', "");
 			}
 	    });
 	  	
@@ -210,7 +210,7 @@
 				//设置值
 				$("#edit-id").val(selectRow.id);
 				$("#edit_name").textbox('setValue', selectRow.name);
-				$("#edit_remark").textbox('setValue', selectRow.remark);
+				$("#edit_mid").textbox('setValue', selectRow.mid);
 			}
 	    });
 	   	
@@ -256,8 +256,8 @@
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td>备注:</td>
-	    			<td><input id="add_remark" style="width: 256px; height: 180px;" class="easyui-textbox" type="text" name="remark" data-options="multiline:true"  /></td>
+	    			<td>年级号:</td>
+	    			<td><input id="add_mid" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="mid" data-options="multiline:true"  /></td>
 	    		</tr>
 	    	</table>
 	    </form>
@@ -276,8 +276,8 @@
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td>备注:</td>
-	    			<td><input id="edit_remark" style="width: 256px; height: 180px;" class="easyui-textbox" type="text" name="remark" data-options="multiline:true"  /></td>
+	    			<td>年级号:</td>
+	    			<td><input id="edit_mid" style="width: 256px; height: 180px;" class="easyui-textbox" type="text" name="mid" data-options="multiline:true"  /></td>
 	    		</tr>
 	    	</table>
 	    </form>

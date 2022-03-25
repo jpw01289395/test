@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class Clazz {
 	private Long id;
-	private Long gradeId;//年级id
+	private String mid;//年级id
+	private String classid;
 	private String name;
-	private String remark;//备注
 	public Long getId() {
 		return id;
 	}
@@ -25,17 +25,18 @@ public class Clazz {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRemark() {
-		return remark;
+	public String getMid() {
+		return mid;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
-	public Long getGradeId() {
-		return gradeId;
+	public String getClassid() {
+		return classid;
 	}
-	public void setGradeId(Long gradeId) {
-		this.gradeId = gradeId;
+
+	public void setClassid(String classid) {
+		this.classid = classid;
 	}
-	
 }

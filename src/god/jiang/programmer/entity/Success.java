@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Success {
     private Long id;
-    private String sid;//学生学号
+    private String sn;//学生学号
     private String cid;//课程号
     private Float success;//成绩
 
@@ -26,11 +26,11 @@ public class Success {
     }
 
     public String getSid() {
-        return sid;
+        return sn;
     }
 
     public void setSid(String sid) {
-        this.sid = sid;
+        this.sn = sid;
     }
 
     public String getCid() {

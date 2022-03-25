@@ -92,7 +92,7 @@ public class StudentController {
 	
 	/**
 	 * 编辑学生信息
-	 * @param clazz
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
@@ -109,7 +109,7 @@ public class StudentController {
 			ret.put("msg", "学生登录密码不能为空！");
 			return ret;
 		}
-		if(student.getClazzId() == null){
+		if(student.getClassid() == null){
 			ret.put("type", "error");
 			ret.put("msg", "请选择所属班级！");
 			return ret;
@@ -150,7 +150,7 @@ public class StudentController {
 			ret.put("msg", "学生登录密码不能为空！");
 			return ret;
 		}
-		if(student.getClazzId() == null){
+		if(student.getClassid() == null){
 			ret.put("type", "error");
 			ret.put("msg", "请选择所属班级！");
 			return ret;

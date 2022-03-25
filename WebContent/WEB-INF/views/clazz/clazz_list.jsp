@@ -36,29 +36,29 @@
 				{field:'chk',checkbox: true,width:50},
  		        {field:'id',title:'ID',width:50, sortable: true},    
  		        {field:'name',title:'班级名',width:150, sortable: true},
- 		       {field:'gradeId',title:'所属年级',width:150, sortable: true,
+                {field:'classid',title:'班级号',width:150, sortable: true},
+ 		        {field:'mid',title:'所属年级',width:150, sortable: true,
  		        	formatter:function(value,index,row){
  		        		for(var i=0;i<gradeList.length;i++){
- 		        			if(gradeList[i].id == value){
+ 		        			if(gradeList[i].mid == value){
  		        				return gradeList[i].name;
  		        			}
  		        		}
  		        		return value;
  		    	   }
  		        },
- 		        {field:'remark',title:'备注',width:300},
-	 		]], 
+	 		]],
 	        toolbar: "#toolbar"
-	    }); 
-	    //设置分页控件 
-	    var p = $('#dataList').datagrid('getPager'); 
-	    $(p).pagination({ 
-	        pageSize: 10,//每页显示的记录条数，默认为10 
-	        pageList: [10,20,30,50,100],//可以设置每页记录条数的列表 
-	        beforePageText: '第',//页数文本框前显示的汉字 
-	        afterPageText: '页    共 {pages} 页', 
-	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录', 
-	    }); 
+	    });
+	    //设置分页控件
+	    var p = $('#dataList').datagrid('getPager');
+	    $(p).pagination({
+	        pageSize: 10,//每页显示的记录条数，默认为10
+	        pageList: [10,20,30,50,100],//可以设置每页记录条数的列表
+	        beforePageText: '第',//页数文本框前显示的汉字
+	        afterPageText: '页    共 {pages} 页',
+	        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+	    });
 	    //设置工具类按钮
 	    $("#add").click(function(){
 	    	table = $("#addTable");
@@ -108,7 +108,7 @@
             	});
             }
 	    });
-	    
+
 	  	//设置添加窗口
 	    $("#addDialog").dialog({
 	    	title: "添加班级",
@@ -139,16 +139,17 @@
 								data: data,
 								dataType:'json',
 								success: function(data){
+								console.log(data)
 									if(data.type == "success"){
 										$.messager.alert("消息提醒","添加成功!","info");
 										//关闭窗口
 										$("#addDialog").dialog("close");
 										//清空原表格数据
 										$("#add_name").textbox('setValue', "");
-										$("#add_remark").textbox('setValue', "");
+										$("#add_classid").textbox('setValue', "");
 										//重新刷新页面数据
 							  			$('#dataList').datagrid("reload");
-										
+
 									} else{
 										$.messager.alert("消息提醒",data.msg,"warning");
 										return;
@@ -161,10 +162,10 @@
 			],
 			onClose: function(){
 				$("#add_name").textbox('setValue', "");
-				$("#add_remark").textbox('setValue', "");
+				$("#add_classid").textbox('setValue', "");
 			}
 	    });
-	  	
+
 	  	//编辑班级信息
 	  	$("#editDialog").dialog({
 	  		title: "修改班级信息",
@@ -188,9 +189,9 @@
 							$.messager.alert("消息提醒","请检查你输入的数据!","warning");
 							return;
 						} else{
-							
+
 							var data = $("#editForm").serialize();
-							
+
 							$.ajax({
 								type: "post",
 								url: "edit",
@@ -201,11 +202,11 @@
 										$.messager.alert("消息提醒","修改成功!","info");
 										//关闭窗口
 										$("#editDialog").dialog("close");
-										
+
 										//重新刷新页面数据
 							  			$('#dataList').datagrid("reload");
 							  			$('#dataList').datagrid("uncheckAll");
-										
+
 									} else{
 										$.messager.alert("消息提醒",data.msg,"warning");
 										return;
@@ -221,17 +222,17 @@
 				//设置值
 				$("#edit-id").val(selectRow.id);
 				$("#edit_name").textbox('setValue', selectRow.name);
-				$("#edit_gradeId").combobox('setValue', selectRow.gradeId);
-				$("#edit_remark").textbox('setValue', selectRow.remark);
+				$("#edit_classid").textbox('setValue', selectRow.classid);
+				$("#edit_mid").combobox('setValue', selectRow.mid);
 			}
 	    });
-	   	
-	  	
+
+
 	  	//搜索按钮
 	  	$("#search-btn").click(function(){
 	  		$('#dataList').datagrid('reload',{
 	  			name:$("#search-name").textbox('getValue'),
-	  			gradeId:$("#search-grade-id").combobox('getValue')
+	  			mid:$("#search-grade-id").combobox('getValue')
 	  		});
 	  	});
 	});
@@ -239,9 +240,9 @@
 </head>
 <body>
 	<!-- 数据列表 -->
-	<table id="dataList" cellspacing="0" cellpadding="0"> 
-	    
-	</table> 
+	<table id="dataList" cellspacing="0" cellpadding="0">
+
+	</table>
 	<!-- 工具栏 -->
 	<div id="toolbar">
 		<c:if test="${userType == 1}">
@@ -259,15 +260,15 @@
 			<select id="search-grade-id" class="easyui-combobox" style="width: 150px;">
 				<option value="">全部</option>
 				<c:forEach items="${ gradeList}" var="grade">
-	    			<option value="${grade.id }">${grade.name }</option>
+	    			<option value="${grade.mid }">${grade.name }</option>
 	    		</c:forEach>
 			</select>
 			<a id="search-btn" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">搜索</a>
 		</div>
 	</div>
-	
+
 	<!-- 添加窗口 -->
-	<div id="addDialog" style="padding: 10px;">  
+	<div id="addDialog" style="padding: 10px;">
    		<form id="addForm" method="post">
 	    	<table id="addTable" cellpadding="8">
 	    		<tr >
@@ -277,24 +278,27 @@
 	    			</td>
 	    		</tr>
 	    		<tr >
+                	<td>班级号:</td>
+           			<td>
+     	   				<input id="add_classid"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="classid" data-options="required:true, missingMessage:'请填写班级号'"  />
+   	    			</td>
+                </tr>
+	    		<tr >
 	    			<td>所属年级:</td>
 	    			<td>
-	    				<select id="add_gradeId"  class="easyui-combobox" style="width: 200px;" name="gradeId" data-options="required:true, missingMessage:'请选择所属年级'">
+	    				<select id="add_mid"  class="easyui-combobox" style="width: 200px;" name="mid" data-options="required:true, missingMessage:'请选择所属年级'">
 	    					<c:forEach items="${ gradeList}" var="grade">
-	    						<option value="${grade.id }">${grade.name }</option>
+	    						<option value="${grade.mid }">${grade.name }</option>
 	    					</c:forEach>
 	    				</select>
 	    			</td>
 	    		</tr>
-	    		<tr>
-	    			<td>备注:</td>
-	    			<td><input id="add_remark" style="width: 256px; height: 180px;" class="easyui-textbox" type="text" name="remark" data-options="multiline:true"  /></td>
-	    		</tr>
+
 	    	</table>
 	    </form>
 	</div>
-	
-	
+
+
 	<!-- 修改窗口 -->
 	<div id="editDialog" style="padding: 10px">
     	<form id="editForm" method="post">
@@ -307,23 +311,26 @@
 	    			</td>
 	    		</tr>
 	    		<tr >
+                	 <td>班级号:</td>
+                	 <td>
+     	   				<input id="edit_classid"  style="width: 200px; height: 30px;" type="text" name="classid" data-options="required:true, missingMessage:'请填写班级号'"  />
+                	 </td>
+                </tr>
+	    		<tr >
 	    			<td>所属年级:</td>
 	    			<td>
-	    				<select id="edit_gradeId"  class="easyui-combobox" style="width: 200px;" name="gradeId" data-options="required:true, missingMessage:'请选择所属年级'">
+	    				<select id="edit_mid"  class="easyui-combobox" style="width: 200px;" name="mid" data-options="required:true, missingMessage:'请选择所属年级'">
 	    					<c:forEach items="${ gradeList}" var="grade">
-	    						<option value="${grade.id }">${grade.name }</option>
+	    						<option value="${grade.mid }">${grade.name }</option>
 	    					</c:forEach>
 	    				</select>
 	    			</td>
 	    		</tr>
-	    		<tr>
-	    			<td>备注:</td>
-	    			<td><input id="edit_remark" style="width: 256px; height: 180px;" class="easyui-textbox" type="text" name="remark" data-options="multiline:true"  /></td>
-	    		</tr>
+
 	    	</table>
 	    </form>
 	</div>
 	
-	
+
 </body>
 </html>
